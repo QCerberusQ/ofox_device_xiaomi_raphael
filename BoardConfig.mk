@@ -28,3 +28,6 @@ TARGET_2ND_CPU_VARIANT := generic
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msmnile
 TARGET_NO_BOOTLOADER := true
+
+# Platform
+TARGET_BOARD_PLATFORM := msmnile
