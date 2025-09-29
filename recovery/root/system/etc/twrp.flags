@@ -14,12 +14,11 @@
 /dtbo           emmc    /dev/block/bootdevice/by-name/dtbo                      flags=display="DTBO";backup=1;flashimg=1
 
 # System
-/system_root    auto    /dev/block/bootdevice/by-name/system                    flags=display="System";wipeingui
-/system_image   emmc    /dev/block/bootdevice/by-name/system                    flags=display="System";backup=1;flashimg=1
-/vendor         auto    /dev/block/bootdevice/by-name/vendor                    flags=display="Vendor";wipeingui
-/vendor_image   emmc    /dev/block/bootdevice/by-name/vendor                    flags=display="Vendor";backup=1;flashimg=1
-/cust           auto    /dev/block/bootdevice/by-name/cust                      flags=display="Cust";wipeingui
-/cust_image     emmc    /dev/block/bootdevice/by-name/cust                      flags=display="Cust";backup=1;flashimg=1
+/system         auto    system                                                  flags=display="System";logical
+/vendor         auto    vendor                                                  flags=display="Vendor";logical
+/product        auto    product                                                 flags=display="Product";logical
+/system_ext     auto    system_ext                                              flags=display="System_EXT";logical
+/odm            auto    odm                                                     flags=display="ODM";logical
 
 # Modem
 /firmware       vfat    /dev/block/bootdevice/by-name/modem                     flags=display="Firmware";fsflags="ro";mounttodecrypt
