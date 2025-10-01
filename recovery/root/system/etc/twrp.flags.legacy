@@ -1,0 +1,7 @@
+# System
+/system_root    auto    /dev/block/bootdevice/by-name/system                    flags=display="System";wipeingui
+/system_image   emmc    /dev/block/bootdevice/by-name/system                    flags=display="System";backup=1;flashimg=1
+/vendor         auto    /dev/block/bootdevice/by-name/vendor                    flags=display="Vendor";wipeingui
+/vendor_image   emmc    /dev/block/bootdevice/by-name/vendor                    flags=display="Vendor";backup=1;flashimg=1
+/cust           auto    /dev/block/bootdevice/by-name/cust                      flags=display="Cust";wipeingui
+/cust_image     emmc    /dev/block/bootdevice/by-name/cust                      flags=display="Cust";backup=1;flashimg=1

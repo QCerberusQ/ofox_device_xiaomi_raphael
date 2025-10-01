@@ -3,18 +3,4 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 #<src>                                  <mnt_point>     <type>      <mnt_flags and options>                                          <fs_mgr_flags>
-system                                  /system         ext4        ro,barrier=1                                                     wait,logical
-system                                  /system         erofs       ro                                                               wait,logical
-vendor                                  /vendor         ext4        ro,barrier=1                                                     wait,logical
-vendor                                  /vendor         erofs       ro                                                               wait,logical
-system_ext                              /system_ext     ext4        ro,barrier=1                                                     wait,logical
-system_ext                              /system_ext     erofs       ro                                                               wait,logical
-product                                 /product        ext4        ro,barrier=1                                                     wait,logical
-product                                 /product        erofs       ro	                                                             wait,logical
-odm                                     /odm            ext4        ro,barrier=1                                                     wait,logical
-odm                                     /odm            erofs       ro                                                               wait,logical
-
-/dev/block/by-name/metadata             /metadata       ext4        noatime,nosuid,nodev,discard,data=journal,commit=1               wait,formattable,check,first_stage_mount
-/dev/block/bootdevice/by-name/userdata  /data           f2fs        nosuid,nodev,noatime,discard,resgid=1065,inlinecrypt,reserve_root=32768,fsync_mode=nobarrier        latemount,wait,check,quota,formattable,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,fscompress,keydirectory=/metadata/vold/metadata_encryption,reservedsize=128M,checkpoint=fs
-
 /dev/block/bootdevice/by-name/misc      /misc           emmc        defaults                                                         defaults
