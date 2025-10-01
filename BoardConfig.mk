@@ -62,6 +62,9 @@ BOARD_USES_METADATA_PARTITION := true
 TARGET_COPY_OUT_VENDOR := vendor
 TARGET_USERIMAGES_USE_F2FS := true
 
+# Properties
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+
 # System as Root
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
