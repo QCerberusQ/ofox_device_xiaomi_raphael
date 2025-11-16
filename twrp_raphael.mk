@@ -14,6 +14,9 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 # Inherit from raphael device
 $(call inherit-product, device/xiaomi/raphael/device.mk)
 
+# Inherit OrangeFox-specific settings
+$(call inherit-product, device/xiaomi/raphael/fox_raphael.mk)
+
 # Device identifier. This must come after all inclusions.
 PRODUCT_DEVICE := raphael
 PRODUCT_NAME := twrp_raphael
