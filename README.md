@@ -1,4 +1,4 @@
-# TWRP device tree for Redmi K20 Pro (raphael)
+# OFRP device tree for Redmi K20 Pro (raphael)
 
 ```
 #
