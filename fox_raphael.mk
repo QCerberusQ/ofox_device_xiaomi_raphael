@@ -23,27 +23,27 @@ OF_USE_GREEN_LED := 0
 OF_NO_TREBLE_COMPATIBILITY_CHECK := 1
 OF_NO_MIUI_PATCH_WARNING := 1
 
-# Build all the partition tools
+# Dinamik bölümler (Retrofit) için gerekli araçlar
 OF_ENABLE_ALL_PARTITION_TOOLS := 1
+OF_USE_DMCTL := 1
 
-# Quick backup list
+# Hızlı yedekleme listesi
 OF_QUICK_BACKUP_LIST := /boot;/data;
 
 # Patch AVB 2.0
 OF_PATCH_AVB20 := 1
 
-# OTA
+# OTA Ayarları
 OF_SUPPORT_ALL_BLOCK_OTA_UPDATES := 1
 OF_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR := 1
 OF_DISABLE_MIUI_OTA_BY_DEFAULT := 1
 
-# Try to prevent potential data format errors
+# Format ve Metadata Ayarları
 OF_UNBIND_SDCARD_F2FS := 1
+OF_WIPE_METADATA_AFTER_DATAFORMAT := 1
+OF_FBE_METADATA_MOUNT_IGNORE := 1
 
-# Screen settings
+# Ekran ve Arayüz Optimizasyonları
 OF_SCREEN_H := 2340
 OF_STATUS_INDENT_LEFT := 48
 OF_STATUS_INDENT_RIGHT := 48
-
-# Use dmctl when formatting data
-OF_USE_DMCTL := 1
