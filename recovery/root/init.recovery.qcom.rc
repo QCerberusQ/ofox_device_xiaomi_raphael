@@ -1,6 +1,7 @@
 import /init.recovery.qcom_decrypt.rc
 
 on init
+    write /sys/class/backlight/panel0-backlight/brightness 200
     exec u:r:recovery:s0 -- /system/bin/merge-fstab.sh
 
 on fs
