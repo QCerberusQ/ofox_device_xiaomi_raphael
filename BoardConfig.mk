@@ -133,5 +133,12 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
 TARGET_USES_LOGD := true
 TWRP_INCLUDE_LOGCAT := true
 
+# Logical partition tools
+TW_INCLUDE_LPDUMP := true
+TW_INCLUDE_LPTOOLS := true
+
+# Fastbootd
+TW_INCLUDE_FASTBOOTD := true
+
 # TWRP - Vibrator
 TW_SUPPORT_INPUT_AIDL_HAPTICS := true
