@@ -56,7 +56,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 
     # Theme/Settings Storage
     export FOX_ALLOW_EARLY_SETTINGS_LOAD=1
-    export FOX_SETTINGS_ROOT_DIRECTORY=/data/recovery
+    export FOX_SETTINGS_ROOT_DIRECTORY=/persist/recovery
     export FOX_MISCELLANEOUS_ROOT_DIRECTORY=/sdcard
 
     # Maintainer Stuff
