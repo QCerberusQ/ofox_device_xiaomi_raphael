@@ -26,7 +26,7 @@
 /efsg           emmc    /dev/block/bootdevice/by-name/fsg                       flags=subpartitionof=/efs1;backup=1
 
 # Persist
-/persist        ext4    /dev/block/bootdevice/by-name/persist                   flags=display="Persist";fsflags="ro"
+/persist        ext4    /dev/block/bootdevice/by-name/persist                   flags=display="Persist"
 /persist_image  emmc    /dev/block/bootdevice/by-name/persist                   flags=display="Persist";backup=1;flashimg=1
 
 # Logo
