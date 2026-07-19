@@ -4,14 +4,11 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Define hardware platform
+# Hardware platform
 PRODUCT_PLATFORM := msmnile
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 28
-
-# Assert
-TARGET_OTA_ASSERT_DEVICE := raphael,raphaelin
 
 # Crypto
 PRODUCT_PACKAGES += \
