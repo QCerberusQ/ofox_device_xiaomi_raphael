@@ -167,6 +167,7 @@ TARGET_USES_LOGD := true
 TWRP_INCLUDE_LOGCAT := true
 
 # TWRP - Logical partition tools
+TW_ENABLE_ALL_PARTITION_TOOLS := true
 TW_INCLUDE_LPDUMP := true
 TW_INCLUDE_LPTOOLS := true
 
