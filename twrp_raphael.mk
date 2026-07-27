@@ -8,6 +8,9 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 
+# Device Definitions
+PRODUCT_RELEASE_NAME := raphael
+
 # Inherit TWRP common configuration
 $(call inherit-product, vendor/twrp/config/common.mk)
 
