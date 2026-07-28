@@ -15,6 +15,7 @@
 
 # Modem
 /firmware       vfat    /dev/block/bootdevice/by-name/modem                     flags=display="Firmware";fsflags="ro";mounttodecrypt
+/firmware_image emmc    /dev/block/bootdevice/by-name/modem                     flags=display="Firmware_image";backup=0;flashimg=1
 /modem          emmc    /dev/block/bootdevice/by-name/modem                     flags=display="Modem";backup=1
 /bluetooth      emmc    /dev/block/bootdevice/by-name/bluetooth                 flags=subpartitionof=/modem;backup=1
 /dsp            emmc    /dev/block/bootdevice/by-name/dsp                       flags=subpartitionof=/modem;backup=1
@@ -32,6 +33,9 @@
 # Logo
 /logo           emmc    /dev/block/bootdevice/by-name/logo                      flags=display="Logo";backup=1;flashimg=1
 /splash         emmc    /dev/block/bootdevice/by-name/splash                    flags=display="Logo (Deprecated)";backup=1;flashimg=1
+
+# AVB
+/vbmeta_image   emmc    /dev/block/bootdevice/by-name/vbmeta                   	flags=display="Vbmeta (Image)";backup=1;flashimg=1
 
 # Removable storage
 /usb_otg        auto    /dev/block/sdg1             /dev/block/sdg              flags=display="USB Storage";removable;storage;wipeingui
