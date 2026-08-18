@@ -2,11 +2,11 @@ import /init.recovery.qcom_decrypt.rc
 
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
-    exec u:r:recovery:s0 -- /system/bin/merge-fstab.sh
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    exec u:r:recovery:s0 -- /system/bin/merge-fstab.sh
 
 service vendor.qti.vibrator /vendor/bin/hw/vendor.qti.hardware.vibrator.service
     user root
