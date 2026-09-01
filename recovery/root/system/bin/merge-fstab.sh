@@ -42,6 +42,32 @@ process_fstab_files() {
         cat /system/etc/twrp-dynamic.flags >> /system/etc/twrp.flags;
     else
         echo "merge-fstab: Loading FBEv1 fstab." > /dev/kmsg;
+
+        # Legacy Gapps error fix: MindTheGapps reads ro.boot.dynamic_partitions=true
+        # and resolves SYSTEM_BLOCK as ${BLK_PATH}/system under /dev/block/mapper.
+        # Fake only that one node - test -b follows the symlink, so blockdev --setrw
+        # and mount -o rw both reach the physical partition. Never resetprop here:
+        # rewriting a ro. prop deletes and re-adds its trie node, which kills init's
+        # property triggers and starves qseecomd (boot logo hang on EFE FBEv1).
+        # Deliberately NOT symlinking product/system_ext - leaving them absent keeps
+        # PRODUCT_BLOCK empty so the installer copies into the nested /system/product.
+        MAPPER=/dev/block/mapper;
+        SYSBLK=/dev/block/bootdevice/by-name/system;
+        if [ ! -e "$MAPPER/system" ] && [ -b "$SYSBLK" ]; then
+            mkdir -p "$MAPPER";
+            ln -s "$SYSBLK" "$MAPPER/system";
+            echo "merge-fstab: linked $MAPPER/system -> $SYSBLK (legacy ROM)" > /dev/kmsg;
+        else
+            echo "merge-fstab: WARNING $MAPPER/system exists or $SYSBLK missing - link skipped" > /dev/kmsg;
+        fi
+
+        # Testing: confirm the faked node resolves as a block device
+        if [ -b "$MAPPER/system" ]; then
+            echo "merge-fstab: mapper/system OK [-b passes] super [$(getprop ro.boot.super_partition)]" > /dev/kmsg;
+        else
+            echo "merge-fstab: WARNING mapper/system does NOT satisfy -b - Gapps will fail" > /dev/kmsg;
+        fi
+
         echo >> /system/etc/recovery.fstab;
         cat /system/etc/recovery-fbev1.fstab >> /system/etc/recovery.fstab;
         echo >> /system/etc/twrp.flags;
