@@ -1,31 +1,36 @@
 #!/system/bin/sh
 
 rom_has_dynamic_partitions() {
-    local markers="raphael_dynamic_partitions|qti_dynamic_partitions|raphael_dynpart";
     local blk="/dev/block/bootdevice/by-name/system";
-    local head;
+    local off;
 
+    # Legacy is the safe default: a legacy fstab on a dynamic ROM fails loudly at
+    # mount time and never touches keys, whereas a dynamic fstab on a legacy ROM
+    # mounts far enough to look alive and then regenerates the FBE keys.
     if [ ! -e "$blk" ]; then
-        echo "merge-fstab: $blk absent - cannot detect layout, assuming dynamic" > /dev/kmsg;
-        echo "1";
-        return;
-    fi
-
-    head="$(dd if="$blk" bs=256k count=1 2>/dev/null | strings)";
-
-    if [ -z "$head" ]; then
-        echo "merge-fstab: probe produced no output (dd/strings failed) - assuming dynamic" > /dev/kmsg;
-        echo "1";
-        return;
-    fi
-
-    if echo "$head" | grep -q -E "$markers"; then
-        echo "merge-fstab: dynamic markers found - FBEv2" > /dev/kmsg;
-        echo "1";
-    else
-        echo "merge-fstab: probe OK, no dynamic markers - FBEv1" > /dev/kmsg;
+        echo "merge-fstab: $blk absent - assuming legacy (FBEv1)" > /dev/kmsg;
         echo "0";
+        return;
     fi
+
+    # liblp LP_METADATA_GEOMETRY_MAGIC (0x616c4467) sits at LP_PARTITION_RESERVED_BYTES
+    # (4096) and is mirrored at 8192. It is mandatory in every valid super partition,
+    # unlike the group names an earlier revision grepped for - those vary per ROM
+    # (main / qti_dynamic_partitions / raphael_dynamic_partitions) and an ext4 header
+    # can legitimately contain no printable run at all, which misdetected Android 9
+    # MIUI as dynamic. Little-endian the magic is the printable ASCII "gDla", so a
+    # plain string compare needs no strings/od/hexdump in the ramdisk, and bs=1 with
+    # skip= is a single lseek on a seekable device rather than 4096 reads.
+    for off in 4096 8192; do
+        if [ "$(dd if="$blk" bs=1 skip="$off" count=4 2>/dev/null)" = "gDla" ]; then
+            echo "merge-fstab: liblp geometry magic at $off - dynamic/FBEv2" > /dev/kmsg;
+            echo "1";
+            return;
+        fi
+    done
+
+    echo "merge-fstab: no liblp geometry at 4096/8192 - legacy/FBEv1" > /dev/kmsg;
+    echo "0";
 }
 
 process_fstab_files() {
