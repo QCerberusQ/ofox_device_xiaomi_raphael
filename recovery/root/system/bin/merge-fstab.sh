@@ -36,6 +36,7 @@ rom_has_dynamic_partitions() {
 process_fstab_files() {
     if [ "$(rom_has_dynamic_partitions)" = "1" ]; then
         echo "merge-fstab: Loading FBEv2 fstab." > /dev/kmsg;
+        echo dynamic > /tmp/.fox_fbe_gen;
         echo >> /system/etc/recovery.fstab;
         for p in system system_ext product vendor odm; do
             echo "${p} /${p} ext4 ro,barrier=1 wait,logical" >> /system/etc/recovery.fstab;
@@ -47,6 +48,7 @@ process_fstab_files() {
         cat /system/etc/twrp-dynamic.flags >> /system/etc/twrp.flags;
     else
         echo "merge-fstab: Loading FBEv1 fstab." > /dev/kmsg;
+        echo legacy > /tmp/.fox_fbe_gen;
 
         # Legacy Gapps error fix: MindTheGapps reads ro.boot.dynamic_partitions=true
         # and resolves SYSTEM_BLOCK as ${BLK_PATH}/system under /dev/block/mapper.
