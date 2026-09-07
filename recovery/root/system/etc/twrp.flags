@@ -26,6 +26,9 @@
 /efsc           emmc    /dev/block/bootdevice/by-name/fsc                       flags=subpartitionof=/efs1;backup=1
 /efsg           emmc    /dev/block/bootdevice/by-name/fsg                       flags=subpartitionof=/efs1;backup=1
 
+# FRP partition
+/frp            emmc    /dev/block/bootdevice/by-name/frp                       flags=display="FRP"
+
 # Persist
 /persist        ext4    /dev/block/bootdevice/by-name/persist                   flags=display="Persist"
 /persist_image  emmc    /dev/block/bootdevice/by-name/persist                   flags=display="Persist";backup=1;flashimg=1
