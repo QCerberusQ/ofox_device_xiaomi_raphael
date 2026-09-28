@@ -40,5 +40,8 @@
 # AVB
 /vbmeta_image   emmc    /dev/block/bootdevice/by-name/vbmeta                   	flags=display="Vbmeta (Image)";backup=1;flashimg=1
 
+# Storage
+/storage        auto    /data/media/0                                           flags=display="Internal Storage";usermrf;backup=1;fsflags="bind";removable
+
 # Removable storage
 /usb_otg        auto    /dev/block/sdg1             /dev/block/sdg              flags=display="USB Storage";removable;storage;wipeingui
