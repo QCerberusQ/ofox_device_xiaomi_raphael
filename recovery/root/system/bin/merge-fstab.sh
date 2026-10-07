@@ -4,6 +4,12 @@ rom_has_dynamic_partitions() {
     local blk="/dev/block/bootdevice/by-name/system";
     local off;
 
+    # This runs from "on init", but /dev/block/bootdevice is only symlinked in
+    # "on fs" (init.recovery.qcom.rc:9), which runs later. init creates
+    # /dev/block/by-name/* itself from the partition uevents, so fall back to
+    # that instead of silently taking the legacy branch on a dynamic ROM.
+    [ -e "$blk" ] || blk="/dev/block/by-name/system";
+
     # Legacy is the safe default: a legacy fstab on a dynamic ROM fails loudly at
     # mount time and never touches keys, whereas a dynamic fstab on a legacy ROM
     # mounts far enough to look alive and then regenerates the FBE keys.
