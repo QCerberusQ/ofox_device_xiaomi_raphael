@@ -64,6 +64,10 @@ process_fstab_files() {
         # PRODUCT_BLOCK empty so the installer copies into the nested /system/product.
         MAPPER=/dev/block/mapper;
         SYSBLK=/dev/block/bootdevice/by-name/system;
+
+        # Same on-init race as above; keep this block self-contained.
+        [ -e "$SYSBLK" ] || SYSBLK="/dev/block/by-name/system";
+
         if [ ! -e "$MAPPER/system" ] && [ -b "$SYSBLK" ]; then
             mkdir -p "$MAPPER";
             ln -s "$SYSBLK" "$MAPPER/system";
